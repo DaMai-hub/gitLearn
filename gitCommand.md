@@ -56,6 +56,7 @@
     HEAD        : 指向当前分支的指针
     HEAD~1      : 在当前分支对应本地仓库上一次的commit的位置(上一个版本)[HEAD^]
     HEAD~4      : 上4个版本
+    FETCH_HEAD  : 用于指向最近一次fetch结果的指针
     ```
 
     ```
@@ -304,6 +305,19 @@
     ```
 
     ![Alt text](image/git_11.jpg)
+
+    ```
+    git status -s | grep 'UU'
+    显示具有未解决的冲突文件名
+
+    使用vscode解决冲突：查看本地网页"提交代码出现冲突解决方案git用pull后冲突解决vscode.html"
+    Accept Current Change（采用当前更改）：只保留当前的修改，也就是main主分支上的修改
+    Accept Incoming Change（采用传入的更改）：使用reg分支上的修改
+    Accept Both Changes（保留双方更改）：双方的修改都保留，这时需要我们手动解决冲突
+    Compare Changes（比较变更）：比较按钮
+    ```
+
+    ![Alt text](image/git_23.png)
 
   * 储藏当前工作区stash
 
