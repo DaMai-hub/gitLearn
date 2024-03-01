@@ -64,9 +64,6 @@
 
     git show HEAD
     检查HEAD状态，显示HEAD位置
-
-
-
     ```
 
     ![Alt text](image/git_18.png)
@@ -81,6 +78,8 @@
     添加一个文件到stage
     git add .
     将所有untrack+modified文件添加到暂存区
+    git add *.txt
+    使用通配符指定通用文件
 
 
     git commit -m "message"
@@ -90,6 +89,8 @@
     git commit -a -m "message"
     提交所有已修改的文件到repository
     ```
+
+    ![Alt text](image/git_22.png)
 
   * 查看工作区+暂存区修改状态
 
@@ -115,6 +116,18 @@
 
     git diff <commit-id> <commit-id>
     查看2个提交之间的差异
+
+    git diff --name-only <commit-id> <commit-id>
+    仅显示2次提交文件名的差异
+
+    git show --name-only <commit-id>
+    查看某次提交中修改情况，仅显示文件名
+
+    git diff <commit-id> -- <file-name>
+    显示某次提交指定文件对应的修改详情
+    e.g.
+    git diff <commit-id> -- *.txt
+    其中可以使用通配符指定通用文件
     ```
 
     ![Alt text](image/git_02.jpg)
