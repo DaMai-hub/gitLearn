@@ -58,6 +58,19 @@
     HEAD~4      : 上4个版本
     ```
 
+    ```
+    HEAD指向当前检出分支的最后一次提价，它类似于对任何引用的指针
+    HEAD可以理解为当前分支，使用"checkout/switch"，HEAD会传递到新的分支
+
+    git show HEAD
+    检查HEAD状态，显示HEAD位置
+
+
+
+    ```
+
+    ![Alt text](image/git_18.png)
+
 
 ## (2)<font color=#FFE4B5>git_operate</font>
 
@@ -150,6 +163,12 @@
     git branch -D <branch-name>
     删除一个分支，不管是否合并
 
+    git push origin -delete <branch-name>
+    删除远程分支
+
+    git branch -m <old-branch-name> <new-branch-name>
+    重命名分支
+
     git tag <tag-name>
     给当前的提交打上标签，通常用于版本发布
 
@@ -173,6 +192,50 @@
     ![Alt text](image/git_03.png)
 
     ![Alt text](image/git_04.png)
+
+    ```
+    rebase/merge概念
+    git rebase/git merge所处理是相同的问题，用于把一个分支的变更整合进另一个分支
+    但是达成的目的不一样
+
+    场景：当你开始在一个专有的分支开发功能时，另一个团队成员更新了main分支的内容
+    这样就会造成一个分叉的提交历史
+
+    example1: merge
+    把main分支合并进feature
+    git checkout feature    HEAD指向feature分支
+    git merge main          将main分支融入feature，main分支不变化
+
+    这会在feature分支中创建一个合并提交，这次提交会连接2个分支的提交信息
+    使用merge对分支历史没有破坏性，现存的分支不会发生任何改变
+    如果当feature分支需要应用上游分支的更改时，会在提交历史上增加一个无关的提交记录
+    如果main分支更新非常活跃，对功能分支提交历史会产生很多污染
+
+    example2: rebase
+    把feature分支重新变基 master内容
+    把main分支的提交历史变基feature分支的提交历史 底端
+    git checkout feature    HEAD指向feature
+    git rebase main         将master分支插入feature底部，master不变，feature基座变了，但是HEAD的指针不变
+
+    这会把feature分支的起始历史放在main分支的最后一次提交，达到使用main分支的新代码目的
+    相对于merge操作中新建一个合并请求，rebase操作会通过为原始分支的每次提交创建全新的提交，从而重写原始分支的提交历史
+    使用rebase操作的最大好处可以让项目变得干净整洁
+    缺点：安全性和可追溯性
+
+    rebase黄金法则
+    永远不要在公共分支上使用它[如果是本地分支rebase公共分支就没有问题]
+    把feature分支rebase到main分支之下，会把所有提交放在feature分支的提交记录
+    这个改变目前只会出现在你的本地仓库，其他开发者仍在原来的main分支上开发
+    由于rebase产生了全新的提交记录，git认为你本地main分支与其他人产生了分叉
+    唯一能够同步2个不同的main分支方式就是采用merge，这会产生一个冗余合并
+    并且这次合并中大部分提交内容都是相同的
+    所以在执行git rebase之前，先确认"是否有其他人使用此分支"
+    ```
+    ![Alt text](image/git_12.png)
+    ![Alt text](image/git_13.png)
+    ![Alt text](image/git_14.png)
+    ![Alt text](image/git_15.png)
+    ![Alt text](image/git_16.png)
 
   * 撤销和恢复
 
@@ -219,6 +282,55 @@
     ![Alt text](image/git_06.png)
     ![Alt text](image/git_07.png)
 
+  * 解决冲突
+
+    ```
+    step-1: 处理文件中冲突地方
+    step-2: 将解决完冲突的文件加入暂存区
+    step-3: 提交到仓库
+    ```
+
+    ![Alt text](image/git_11.jpg)
+
+  * 储藏当前工作区stash
+
+    ```
+    有时候你想要切换分支，但是你正在进行当前项目一个未完成的部分
+    你不想提交一半完成的工作
+    git stash允许你在不提交当前分支的修改内容下切换分支
+
+    git stash save "message"
+    stash操作可以把当前工作现场"储藏"起来，等以后恢复现场后继续工作
+    -u: 把所有未跟踪的文件也一并存储
+    -a: 把所有未跟踪的文件+忽略的文件也一并存储
+    save: 表示存储的信息
+
+    git stash list
+    查看所有stash
+
+    git stash pop <stash-id>
+    恢复指定stash-id内容
+    git stash pop stash@{2}
+    恢复指定的stash，stash@{2}表示第三个stash，stash@{0}表示最近的stash
+
+    git stash apply <stash-id>
+    重新接收指定stash-id内容
+    pop与apply区别: pop会把stash内容删除，apply不会
+
+    git stash drop stash <stash-id>
+    删除指定stash-id
+
+    git stash clear
+    删除所有stash
+
+    git stash branch <branch-name>
+    如果你在特定分支储藏了一个工作并继续在该分支上工作，那么合并时可能会产生冲突
+    最好在一个单独的分支上储藏你的工作
+    作用：创建一个新的分支，并将储藏的工作转移到该分支
+    ```
+
+    ![Alt text](image/git_17.png)
+
   * 远程仓库
 
     ```
@@ -234,15 +346,26 @@
     git remote rename <old-name> <new-name>
     重命名远程仓库
 
-    git pull <remote-name> <branch-name>
-    从远程仓库拉取代码，默认拉取远程仓库名origin的master/main分支
+    git pull <remote-name> <远程branch-name>
+    从远程仓库拉取代码到本地分支HEAD，默认拉取远程仓库名origin的master/main分支
     将远端仓库的修改拉到本地并自动进行合并=fetch+merge
 
-    git pull --rebase
-    将本地改动的代码rebase到远程仓库的最新代码上[一般不建议多人开发使用，自己本地的多分支可以使用]
+    git pull <remote-name> <远程branch-name> : <本地branch-name>
+    将远程指定分支拉取到本地指定分支
 
-    git push <remote-name> <branch-name>
-    推送代码到远程仓库[然后再发起pull request]
+    git pull --rebase <remote-name> <远程branch-name>
+    将本地改动的代码rebase到远程仓库的最新代码上[注意merge与rebase区别]
+
+    note: pull是远程在前本地在后，push是本地在前远程在后
+
+    git push <remote-name> <本地branch-name>
+    将本地分支推送到与本地同名远程分支上
+
+    git push <remote-name> <本地branch-name> : <远程branch-name>
+    将本地分支推送到远程指定分支上
+
+    git push origin HEAD: <远程branch-name>
+    显式指定推送HEAD到远程仓库中的分支
 
     git fetch <remote-name>
     获取所有远程分支
@@ -251,10 +374,10 @@
     fetch某一特定的远程分支
     ```
 
+    ![Alt text](image/git_19.png)
     ![Alt text](image/git_08.jpg)
     ![Alt text](image/git_09.jpg)
     ![Alt text](image/git_10.png)
-
 
 ## (3)<font color=#FFE4B5>git_bug</font>
 
@@ -314,4 +437,47 @@
     列出全局配置的键值对，找到"core.autocrlf"对应的行
     step-2:
     git config --gloabal core.autocrlf true/input/false
+    ```
+
+  * git推送bug
+
+    * 问题1
+
+    ```
+    新建本地仓库master分支后，你在提交了修改内容直接进行push首次会出现失败
+    原因: 我们只是在本地建立一个仓库，没有将本地仓库与远程仓库进行关联
+
+    git remote add origin <repo_address>
+    本地仓库关联远程仓库
+
+    如果本地仓库通过git clone，git会自动帮你关联远程仓库
+    ```
+
+    ![Alt text](image/git_20.png)
+
+    * 问题2
+
+    ```
+    fatal: The upstream branch of your current branch does not match
+    the name of your current branch. To push to the upstream branch on the remote
+
+    翻译:
+    上游分支名[远程分支名]与你本地分支名不匹配
+
+    原因:
+    git push是没有指定参数是默认推送到与其建立跟踪关系的远程分支
+    如果没有建立跟踪关机，就会失败
+    ```
+
+    ![Alt text](image/git_21.png)
+
+    * 思路2
+
+    ````
+    1、将本地分支名与远程分支名一样即可
+
+    2、本地分支与远程分支建立跟踪[track]关系
+    git push -u <remote-name> <本地branch-name> : <远程branch-name>
+    或者
+    git branch --set-upstream-to=<remote-name>/<远程branch-name> <本地branch-name>
     ```
