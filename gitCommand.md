@@ -25,7 +25,41 @@
 
     git clone <url>
     克隆一个远程仓库
+
+    详细流程参考"Git配置以及从GitHub上克隆项目.html"
+
+    cat ~/.ssh/id_rsa.pub
+    显示ssh key
+
+    指令创建SSH Key
+    step-1: ssh-keygen -t rsa -C <mail@example.com>
+    直接输入邮箱，不要带双引号之类的
+
+    显示创建成功:
+    Generating public/private rsa key pair
+    Enter file in which to save the key
+    Create directory
+
+    step-2: Enter passphrase(empty for no passphrase)
+    让你输入密码，如果你设置了密码
+    在使用ssh传输文件的时候，立即要输入这个密码
+    为了避免麻烦，建议不用设置，直接回车
+
+    step-3: Enter same passphrase again
+    让你再次输入密码
+    如果上一步没有设置密码，直接回车就可以了
+
+    github添加SSH时，提供SSH with authentication key认证方式
+    此方式就是step2中使用key之前需要先输入passphrase
+    如果没有passphrase，这是完毕后用户的任何git操作都不需要输入passphrase
+
+    git bach配置
+    鼠标选择+右键直接复制
     ```
+
+    ![Alt text](image/git_24.png)
+    ![Alt text](image/git_25.png)
+    ![Alt text](image/git_26.png)
 
   * 目录区域划分
 
@@ -90,6 +124,11 @@
     git commit -a -m "message"
     提交所有已修改的文件到repository
     ```
+
+    git commit --amend
+    追加提交，在不增加一个新的commit的情况下，将新修改的代码追加到前一次commit中
+    避免许多无用的提交
+    --no-edit: 追加提交，且不修改message
 
     ![Alt text](image/git_22.png)
 
@@ -500,11 +539,34 @@
 
     * 思路2
 
-    ````
+    ```
     1、将本地分支名与远程分支名一样即可
 
     2、本地分支与远程分支建立跟踪[track]关系
     git push -u <remote-name> <本地branch-name> : <远程branch-name>
     或者
     git branch --set-upstream-to=<remote-name>/<远程branch-name> <本地branch-name>
+    ```
+
+  * git克隆bug
+
+    * 问题1
+
+    ```
+    The authenticity of host 'github.com (20.205.243.166)' can't be established.
+    RSA key fingerprint is SHA256:xxxxxxxxxxxxxxxxxx.
+    This key is not known by any other names
+    Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+
+    翻译:
+    github.com的真实性无法成立
+
+    原因:
+    新电脑中host没有关于github内容
+    ```
+
+    * 思路1
+
+    ```
+    不用管，直接回车，根据提示再写入yes，回车
     ```
