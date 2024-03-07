@@ -329,6 +329,9 @@
 
     git restore --stage <file>
     撤销暂存区的文件，重新放回工作区[git add的反向操作]
+
+    git restore <file>
+    重置工作区文件的修改
     ```
 
     ![Alt text](image/git_05.jpg)
@@ -479,6 +482,36 @@
     :wq
     step-2:
     exit+保存
+    ```
+
+    * 问题2
+
+    ```
+    git rebase --continue
+    会显示:
+    No changes - did you forget to use 'git add'?
+    If there is nothing left to stage, chances are that something else
+    already introduced the same changes; you might want to skip this patch.
+
+    When you have resolved this problem, run "git rebase --continue".
+    If you prefer to skip this patch, run "git rebase --skip" instead.
+    To check out the original branch and stop rebasing, run "git rebase --abort"
+
+    翻译:
+    没有改动，你是不是忘了使用"git add"？
+    如果没有任何剩余改动，那么可能是其他东西已经引入相同的改动，你可能想跳过这个补丁
+    问题解决后，运行"git rebase --continue"即可
+    如果你想跳过这个补丁，请运行"git rebase --skip"代替它
+    要退出原始分支并停止重定向，请运行"git rebase --abort"
+
+    原因:
+    即便是已经处理了冲突，但是这个冲突选择以Local作为处理结果，需要跳过之前git的对之前文件的修改
+    ```
+
+    * 思路2
+
+    ```
+    这个时候需要通过 git rebase --skip 来跳过
     ```
 
  * git配置bug
