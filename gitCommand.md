@@ -55,11 +55,15 @@
 
     git bach配置
     鼠标选择+右键直接复制
+
+    推荐vscode插件
+    "GitLens-Git supercharged" 可视化git流程
     ```
 
     ![Alt text](image/git_24.png)
     ![Alt text](image/git_25.png)
     ![Alt text](image/git_26.png)
+    ![Alt text](image/git_27.png)
 
   * 目录区域划分
 
