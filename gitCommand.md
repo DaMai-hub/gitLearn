@@ -542,6 +542,22 @@
     git config --gloabal core.autocrlf true/input/false
     ```
 
+    * 问题2
+
+    ```
+    解决新环境下git status显示一大堆modified文件，文件权限问题：old mode 100755；new mode 100644
+
+    原因:
+    linux/win/mac之间文件模式不同导致的
+    ```
+
+    * 思路2
+
+    ```
+    git config core.filemode false // [在本地指定项目配置]
+    git config --global core.filemode false // [全局配置，一般没啥效果]
+    ```
+
   * git推送bug
 
     * 问题1
