@@ -58,6 +58,16 @@
 
     推荐vscode插件
     "GitLens-Git supercharged" 可视化git流程
+
+    vscode 通过ssh连接虚拟机
+    参考"vscode连接虚拟机服务器ssh.html"
+    ubantu统一时间
+    参考"虚拟机与宿主机的时间.html"
+    vscode通过ssh连接到虚拟机无法进行命令操作
+    参考"VScode远程连接虚拟机终端install错误，无法command.html"
+
+    vscode terminal如何能在输出信息的同时把信息记录到文件中
+    "对应指令(e.g ls/python...) | tee xx.txt"
     ```
 
     ![Alt text](image/git_24.png)
