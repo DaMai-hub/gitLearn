@@ -7,6 +7,8 @@
     ```
     git init <project-name>
     创建一个新的本地仓库(repository)[省略project-name则在当前目录创建]
+    git remote add origin <url>
+    本地项目就和远程仓库建立了连接，git fetch, git pull origin master拉取库上文件
 
     git config --global --list
     查看当前git文件的全局配置
@@ -24,7 +26,7 @@
     配置邮箱
 
     git clone <url>
-    克隆一个远程仓库
+    克隆一个远程仓库，无需git init，会自动新建一个文件夹，里面会自动git init
 
     详细流程参考"Git配置以及从GitHub上克隆项目.html"
 
@@ -98,7 +100,7 @@
     已暂存(staged): 把修改后的文件放在暂存区
 
     已提交(committed): 把暂存区的文件提交到本地仓库
-    
+
     main/master : 默认主分支
     origin      : 默认远程仓库
     HEAD        : 指向当前分支的指针
@@ -190,7 +192,7 @@
 
     ```
     git branch
-    查看所有本地分支，当前分支前面有一个星号*, 
+    查看所有本地分支，当前分支前面有一个星号*,
     -r：查看远程分支
     -a: 查看所有分支
 
@@ -471,7 +473,7 @@
     ```
     merge brach "dev"
     # Please enter a commit message to explain why this merge is necessary,
-    # especially if it merges an updated upstream into a topic branch. 
+    # especially if it merges an updated upstream into a topic branch.
     #
     # Lines starting with '#' will be ignored, and an empty message aborts
     # the commit.
@@ -619,7 +621,7 @@
     The authenticity of host 'github.com (20.205.243.166)' can't be established.
     RSA key fingerprint is SHA256:xxxxxxxxxxxxxxxxxx.
     This key is not known by any other names
-    Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+    Are you sure you want to continue connecting (yes/no/[fingerprint])?
 
     翻译:
     github.com的真实性无法成立
