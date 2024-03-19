@@ -59,7 +59,9 @@
     鼠标选择+右键直接复制
 
     推荐vscode插件
-    "GitLens-Git supercharged" 可视化git流程
+    "GitLens-Git supercharged" 可视化git流程[收费]
+    替代产品: "VSCode替代GitLens.html"
+    "git Blame"/ "git graph"/ "git history"
 
     vscode 通过ssh连接虚拟机
     参考"vscode连接虚拟机服务器ssh.html"
