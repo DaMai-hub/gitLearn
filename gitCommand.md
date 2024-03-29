@@ -257,12 +257,16 @@
     git squash <branch-name>
     合并&挤压(squash)所有提交到一个提交中
 
+    git cherry-pick <commit-hash>
+    将指定某次commit应用于当前分支
 
     ```
 
     ![Alt text](image/git_03.png)
 
     ![Alt text](image/git_04.png)
+
+    ![Alt text](image/git_28.png)
 
     ```
     rebase/merge概念
@@ -491,11 +495,8 @@
     在软件开发过程中，通常会有多个开发人员同时修改远程仓库中的不同部分，当这些修改需要合并到远程分支
     要求用户输入提交信息来解释为什么采取这次合并
     这是由于合并操作可能导致潜在的冲突和问题，为了避免混乱和误解，清晰明确的提交信息时必要的
-    ```
 
-    * 思路1
-
-    ```
+    思路:
     step-1:
     :wq
     step-2:
@@ -524,12 +525,23 @@
 
     原因:
     即便是已经处理了冲突，但是这个冲突选择以Local作为处理结果，需要跳过之前git的对之前文件的修改
-    ```
 
-    * 思路2
-
-    ```
+    思路:
     这个时候需要通过 git rebase --skip 来跳过
+    ```
+
+    * 问题3
+
+    ```
+    error: src refspec xxx does not match any / error: failed to push some refs to
+
+    原因:
+    git push <remote-name> <branch-name远程分支名>
+    当将本地分支push到远端同名分支时，branch-name只需要写一个分支名就可以
+
+    思路:
+    当要push到远端分支名不同于本地分支名
+    git push <remote-name> [本地分支名:远端分支名]
     ```
 
  * git配置bug
@@ -544,11 +556,8 @@
 
     原因:
     参数"core.autocrlf"配置错误
-    ```
 
-    * 思路1
-
-    ```
+    思路:
     step-1:
     git config --global --list
     列出全局配置的键值对，找到"core.autocrlf"对应的行
@@ -563,11 +572,8 @@
 
     原因:
     linux/win/mac之间文件模式不同导致的
-    ```
 
-    * 思路2
-
-    ```
+    思路:
     git config core.filemode false // [在本地指定项目配置]
     git config --global core.filemode false // [全局配置，一般没啥效果]
     ```
@@ -578,8 +584,10 @@
 
     ```
     新建本地仓库master分支后，你在提交了修改内容直接进行push首次会出现失败
+
     原因: 我们只是在本地建立一个仓库，没有将本地仓库与远程仓库进行关联
 
+    思路:
     git remote add origin <repo_address>
     本地仓库关联远程仓库
 
@@ -600,13 +608,8 @@
     原因:
     git push是没有指定参数是默认推送到与其建立跟踪关系的远程分支
     如果没有建立跟踪关机，就会失败
-    ```
 
-    ![Alt text](image/git_21.png)
-
-    * 思路2
-
-    ```
+    思路:
     1、将本地分支名与远程分支名一样即可
 
     2、本地分支与远程分支建立跟踪[track]关系
@@ -614,6 +617,8 @@
     或者
     git branch --set-upstream-to=<remote-name>/<远程branch-name> <本地branch-name>
     ```
+
+    ![Alt text](image/git_21.png)
 
   * git克隆bug
 
@@ -630,10 +635,7 @@
 
     原因:
     新电脑中host没有关于github内容
-    ```
 
-    * 思路1
-
-    ```
+    思路:
     不用管，直接回车，根据提示再写入yes，回车
     ```
