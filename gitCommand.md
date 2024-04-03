@@ -541,7 +541,7 @@
 
     思路:
     当要push到远端分支名不同于本地分支名
-    git push <remote-name> [本地分支名:远端分支名]
+    git push <remote-name> [本地分支名:远端分支名(不要有空格)]
     ```
 
  * git配置bug
