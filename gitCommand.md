@@ -26,7 +26,11 @@
     配置邮箱
 
     git clone <url>
-    克隆一个远程仓库，无需git init，会自动新建一个文件夹，里面会自动git init
+    克隆一个远程仓库，无需git init，在当前目录会自动新建一个库名字文件夹，里面会自动git init
+    git clone <url> .
+    克隆一个远程仓库，放置当前目录，不会新建库名字文件夹
+    git clone <url> fileName
+    克隆一个远程仓库，放置在当前目录下，名字是"fileName"的文件夹中
 
     详细流程参考"Git配置以及从GitHub上克隆项目.html"
 
