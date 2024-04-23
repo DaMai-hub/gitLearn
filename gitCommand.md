@@ -624,6 +624,47 @@
 
     ![Alt text](image/git_21.png)
 
+    * 问题3
+
+    ```
+    hint: Updates were rejected because the tip of your current branch is behind
+    hint: its remote counterpart. If you want to integrate the remote changes,
+    hint: use 'git pull' before pushing again.
+    hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+    翻译:
+    更新被拒绝，因为当前分支的提示位于其后面
+
+    原因:
+    你的当前分支的最新提交落后于远程分支的最新提交。这通常发生在你试图将本地分支的更改推送到远程分支时。在本地仓库上的修改没有基于远程库最新版本，你的本地仓库版本落后于远程仓库。为了解决这个问题，你需要先将远程分支的更改合并到本地分支，然后再次尝试推送你的更改
+
+    思路:
+    1、强制推送[如果确定没人推送你的分支]
+    git push -f origin master:master
+    git push --force origin master:master
+    git push origin master:master -f
+    git push origin master:master --force
+
+    2、拉取一次最新分支代码
+    pull --rebase
+    ```
+
+    * 问题4
+
+    ```
+    hint: Updates were rejected because the remote contains work that you do not
+    hint: have locally. This is usually caused by another repository pushing to
+    hint: the same ref. If you want to integrate the remote changes, use
+    hint: 'git pull' before pushing again.
+    hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+    翻译:
+    远程仓库的部分东西本地仓库没有
+
+    思路:
+    pull --rebase // [拉取一次最新分支代码]
+    ```
+
   * git克隆bug
 
     * 问题1
