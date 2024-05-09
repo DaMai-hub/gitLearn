@@ -138,6 +138,15 @@
     git add *.txt
     使用通配符指定通用文件
 
+    已经track的文件忽略跟踪
+    git update-index --assume-unchanged <file>
+    恢复跟踪
+    git update-index --no-assume-unchanged <file>
+    查看忽略跟踪文件
+    git ls-files -v | grep '^h'
+    批量恢复跟踪
+    git ls-files -v|grep '^h' |awk '{print $2}' |xargs git update-index --no-assume-unchanged
+
 
     git commit -m "message"
     提交所有暂存区的文件到repository
