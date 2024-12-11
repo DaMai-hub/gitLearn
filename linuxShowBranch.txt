@@ -1,0 +1,18 @@
+linux env:
+step1 : nano ~/.bashrc
+
+step2 : 末尾添加
+
+function git_branch {
+   branch="`git branch 2>/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+   if [ "${branch}" != "" ];then
+       if [ "${branch}" = "(no branch)" ];then
+           branch="(`git rev-parse --short HEAD`...)"
+       fi
+       echo " ($branch)"
+   fi
+}
+export PS1='\u@\h \[\033[01;36m\]\W\[\033[01;31m\]$(git_branch)\[\033[00m\] \$ '
+
+step3 : source ~/.bashrc
+
