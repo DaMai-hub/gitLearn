@@ -1,0 +1,4 @@
+1 : tar -zxvf xx.tar.gz
+2 : 进入编译目录 /build/gcc
+3 : 输入 make(生成安装包)
+4 : make install(安装安装包)
