@@ -345,7 +345,8 @@
 
     git revert <commit-id>
     创建一个新的commit，用来撤销指定的提交，后者所有变化都被前者抵消，并应用到当前分支
-    作用：git删除已推送到远程分支的git提交
+    作用：git删除已推送到远程分支的git提交(自动创建commit|在推送之后才能生效)
+    若revert一个"revert commit0(用于恢复commit0的提交)",将会还原至"commit0"的时期
     step-1: git revert <commit-id>
     step-2: git push <remote-name> <branch-name>
 
@@ -416,6 +417,7 @@
     恢复指定stash-id内容
     git stash pop stash@{2}
     恢复指定的stash，stash@{2}表示第三个stash，stash@{0}表示最近的stash
+    如果在应用stash时发生冲突,stash记录不会被删除,而是保留stash_list
 
     git stash apply <stash-id>
     重新接收指定stash-id内容
